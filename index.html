@@ -1,1 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bistrea Coffee & Brunch en Belén, Medellín. Café de especialidad, pastelería artesanal y espacio de coworking.">
+    <title>Bistrea Coffee & Brunch | Medellín</title>
+    
+    <!-- Librerías Externas (CDN) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tipografías: Inter (Cuerpo) y Playfair Display (Títulos) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
+    <!-- Configuración Personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bistrea: {
+                            cream: '#F9F5F0',      // Fondo crema
+                            brown: '#4A3B32',      // Café oscuro
+                            gold: '#D4AF37',       // Dorado
+                            orange: '#D97746',     // Naranja marca
+                            light: '#FFFDF9'       // Blanco cálido
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    boxShadow: {
+                        'golden-glow': '0 0 15px rgba(212, 175, 55, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos CSS Personalizados -->
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #F9F5F0; color: #4A3B32; }
+        
+        /* Efecto Hover Dorado para Galería */
+        .gallery-frame {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+        .gallery-frame:hover {
+            border-color: #D4AF37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="min-h-screen flex flex-col font-sans">
+            
+            <!-- 1. BARRA DE NAVEGACIÓN -->
+            <nav class="fixed w-full z-50 transition-all duration-300" :class="isScrolled ? 'bg-bistrea-cream/95 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-4'">
+                <div class="container mx-auto px-4 flex justify-between items-center">
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center">
+                        <img src="assets/images/logo.jpg" alt="Logo Bistrea" class="h-16 w-auto transition-opacity duration-300 hover:opacity-80">
+                    </a>
+
+                    <!-- Menú Escritorio -->
+                    <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide uppercase transition-colors duration-300" :class="isScrolled ? 'text-bistrea-brown' : 'text-bistrea-light'">
+                        <a href="#inicio" class="hover:text-bistrea-orange transition-colors">Inicio</a>
+                        <a href="#nosotros" class="hover:text-bistrea-orange transition-colors">Nosotros</a>
+                        <a href="#menu" class="hover:text-bistrea-orange transition-colors">Menú</a>
+                        <a href="#galeria" class="hover:text-bistrea-orange transition-colors">Galería</a>
+                        <a href="#ubicacion" class="hover:text-bistrea-orange transition-colors">Ubicación</a>
+                    </div>
+
+                    <!-- Botón Menú Móvil -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden focus:outline-none transition-colors duration-300" :class="isScrolled ? 'text-bistrea-brown' : 'text-bistrea-light'">
+                        <i data-lucide="menu" class="w-8 h-8"></i>
+                    </button>
+                </div>
+
+                <!-- Desplegable Móvil -->
+                <div v-if="mobileMenuOpen" class="md:hidden bg-bistrea-cream absolute w-full shadow-lg border-t border-bistrea-brown/10">
+                    <div class="flex flex-col p-4 space-y-4 text-center font-semibold">
+                        <a @click="mobileMenuOpen = false" href="#inicio" class="block text-bistrea-brown">Inicio</a>
+                        <a @click="mobileMenuOpen = false" href="#nosotros" class="block text-bistrea-brown">Nosotros</a>
+                        <a @click="mobileMenuOpen = false" href="#menu" class="block text-bistrea-brown">Menú</a>
+                        <a @click="mobileMenuOpen = false" href="#ubicacion" class="block text-bistrea-brown">Ubicación</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- 2. SECCIÓN HERO (PORTADA) -->
+            <section id="inicio" class="relative h-screen flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 z-0">
+                    <img src="assets/images/hero.jpg" alt="Ambiente Bistrea" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30"></div>
+                </div>
+                
+                <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto mt-16">
+                    <span class="block text-bistrea-orange font-bold tracking-[0.2em] mb-4 text-sm md:text-base animate-fade-in-up">BELÉN MIRAVALLE, MEDELLÍN</span>
+                    <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight uppercase tracking-[0.15em] animate-fade-in-up delay-100 text-[#F9F5F0]">
+                        Bistrea
+                    </h1>
+                    <div class="w-24 h-1 bg-bistrea-orange mx-auto mb-8"></div>
+                    <p class="text-lg md:text-2xl font-light tracking-wide mb-10 text-gray-100 animate-fade-in-up delay-200">
+                        Brunch • Coffee • Pastelería • Coworking
+                    </p>
+                    <a href="#menu" class="inline-block px-8 py-3 border-2 border-bistrea-orange text-bistrea-orange hover:bg-bistrea-orange hover:text-white transition-all duration-300 uppercase tracking-widest text-sm font-bold rounded">
+                        Ver Menú
+                    </a>
+                </div>
+            </section>
+
+            <!-- 3. SECCIÓN NOSOTROS -->
+            <section id="nosotros" class="py-20 md:py-32 px-4 bg-bistrea-cream">
+                <div class="container mx-auto max-w-6xl">
+                    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+                        <!-- Imagen -->
+                        <div class="order-2 md:order-1 relative">
+                            <div class="relative z-10 rounded-lg overflow-hidden shadow-xl">
+                                <img src="assets/images/nosotros.jpg" alt="Preparación de café" class="w-full h-auto">
+                            </div>
+                            <div class="absolute -bottom-6 -left-6 w-full h-full border-2 border-bistrea-orange/30 rounded-lg -z-0"></div>
+                        </div>
+                        
+                        <!-- Texto -->
+                        <div class="order-1 md:order-2 space-y-6">
+                            <h2 class="font-serif text-4xl md:text-5xl text-bistrea-brown">Nuestra Esencia</h2>
+                            <p class="text-bistrea-brown/80 leading-relaxed text-lg">
+                                Nacimos en el corazón de Belén con un propósito simple: crear un refugio donde el aroma del café recién tostado se encuentre con la calidez de un hogar.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+                                <div class="border-l-4 border-bistrea-orange pl-4">
+                                    <h3 class="font-serif text-xl mb-2 text-bistrea-brown font-bold">Misión</h3>
+                                    <p class="text-sm text-bistrea-brown/80 leading-relaxed">
+                                        Crear un espacio tranquilo y acogedor donde cada persona pueda encontrar paz, buenas conversaciones y una experiencia culinaria preparada con dedicación. Brindar un servicio cálido y atento, hecho con excelencia y sentido profundo, para que cada visita se convierta en un momento que nutra el alma y el cuerpo.
+                                    </p>
+                                </div>
+                                <div class="border-l-4 border-bistrea-orange pl-4">
+                                    <h3 class="font-serif text-xl mb-2 text-bistrea-brown font-bold">Visión</h3>
+                                    <p class="text-sm text-bistrea-brown/80 leading-relaxed">
+                                        Convertirnos en un referente en la ciudad por nuestra comida deliciosa y saludable, nuestra atención cuidada al detalle y nuestro ambiente lleno de paz. Ser reconocidos como el lugar donde se viene a disfrutar, conversar, inspirarse y sentir una conexión auténtica, creciendo de manera sostenible y manteniendo siempre la esencia que nos distingue.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. PRODUCTOS DESTACADOS -->
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-4 max-w-7xl">
+                    <div class="text-center mb-16">
+                        <span class="text-bistrea-orange font-bold tracking-widest text-xs uppercase">Favoritos de la casa</span>
+                        <h2 class="font-serif text-4xl mt-2 text-bistrea-brown">Recomendados Bistrea</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Tarjetas de Productos -->
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-xl aspect-[4/5] mb-4 bg-gray-100">
+                                <img src="assets/images/prensado.jpg" alt="Prensado Chicken" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg"><i data-lucide="heart" class="w-5 h-5 text-bistrea-orange"></i></div>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-bistrea-brown">Prensado Chicken</h3>
+                            <p class="text-sm text-gray-500">Pan artesanal, pollo desmechado, quesos fundidos.</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-xl aspect-[4/5] mb-4 bg-gray-100">
+                                <img src="assets/images/bowl.jpg" alt="Healthy Bowls" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg"><i data-lucide="heart" class="w-5 h-5 text-bistrea-orange"></i></div>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-bistrea-brown">Bowls Saludables</h3>
+                            <p class="text-sm text-gray-500">Base de yogurt griego, granola casera y frutas frescas.</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-xl aspect-[4/5] mb-4 bg-gray-100">
+                                <img src="assets/images/affogato.jpg" alt="Affogato" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg"><i data-lucide="heart" class="w-5 h-5 text-bistrea-orange"></i></div>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-bistrea-brown">Affogato</h3>
+                            <p class="text-sm text-gray-500">El contraste perfecto: Espresso intenso sobre helado.</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-xl aspect-[4/5] mb-4 bg-gray-100">
+                                <img src="assets/images/infusion.jpg" alt="Infusión de Flores" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg"><i data-lucide="heart" class="w-5 h-5 text-bistrea-orange"></i></div>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-bistrea-brown">Infusión de Flores</h3>
+                            <p class="text-sm text-gray-500">Bebida aromática, relajante y visualmente hermosa.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. SECCIÓN MENÚ LISTA -->
+            <section id="menu" class="py-20 bg-bistrea-brown text-bistrea-cream relative">
+                 <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/coffee.png')]"></div>
+                 <div class="container mx-auto px-4 relative z-10 max-w-5xl">
+                    <div class="text-center mb-16">
+                        <h2 class="font-serif text-4xl md:text-5xl text-bistrea-orange">Nuestro Menú</h2>
+                        <p class="mt-4 text-bistrea-cream/70">Sabores auténticos para cada momento del día</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <!-- Brunch & Salados -->
+                        <div>
+                            <h3 class="font-serif text-2xl mb-6 border-b border-bistrea-orange/50 pb-2 inline-block">Brunch & Salados</h3>
+                            <ul class="space-y-6">
+                                <li v-for="item in menu.brunch" :key="item.name" class="flex justify-between items-baseline group">
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-lg group-hover:text-bistrea-orange transition-colors">{{ item.name }}</h4>
+                                        <p class="text-sm text-white/60 font-light">{{ item.desc }}</p>
+                                    </div>
+                                    <span class="text-bistrea-orange font-bold ml-4">{{ item.price }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Café & Pastelería -->
+                        <div>
+                            <h3 class="font-serif text-2xl mb-6 border-b border-bistrea-orange/50 pb-2 inline-block">Café & Pastelería</h3>
+                            <ul class="space-y-6">
+                                <li v-for="item in menu.coffee" :key="item.name" class="flex justify-between items-baseline group">
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-lg group-hover:text-bistrea-orange transition-colors">{{ item.name }}</h4>
+                                        <p class="text-sm text-white/60 font-light">{{ item.desc }}</p>
+                                    </div>
+                                    <span class="text-bistrea-orange font-bold ml-4">{{ item.price }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-12">
+                        <button onclick="alert('Funcionalidad de descarga: Asegúrate de subir tu archivo PDF y vincularlo aquí.')" class="px-8 py-3 bg-bistrea-orange text-white rounded hover:bg-white hover:text-bistrea-orange transition-all duration-300 font-bold uppercase tracking-wider">
+                            Descargar Menú PDF
+                        </button>
+                    </div>
+                 </div>
+            </section>
+
+            <!-- 6. GALERÍA -->
+            <section id="galeria" class="py-20 bg-bistrea-light">
+                <div class="container mx-auto px-4 max-w-7xl">
+                    <div class="text-center mb-12">
+                        <h2 class="font-serif text-4xl text-bistrea-brown">Momentos Bistrea</h2>
+                        <p class="text-gray-500 mt-2">Un espacio diseñado para inspirar</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px]">
+                        <div v-for="(img, index) in galleryImages" :key="index" 
+                             :class="['rounded-lg bg-gray-200 gallery-frame cursor-pointer', img.span]"
+                             :style="{ backgroundImage: `url(${img.url})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. UBICACIÓN Y CONTACTO -->
+            <section id="ubicacion" class="py-0 flex flex-col md:flex-row h-auto md:h-[600px]">
+                <div class="w-full md:w-1/3 bg-bistrea-brown text-bistrea-cream p-10 flex flex-col justify-center">
+                    <h2 class="font-serif text-3xl mb-8 text-bistrea-orange">Visítanos</h2>
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <i data-lucide="map-pin" class="w-6 h-6 text-bistrea-orange mt-1"></i>
+                            <div>
+                                <h3 class="font-bold text-lg">Dirección</h3>
+                                <p class="text-white/70">Calle 32e # 80 - 75</p>
+                                <p class="text-white/70">Belén Miravalle, Medellín</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <i data-lucide="clock" class="w-6 h-6 text-bistrea-orange mt-1"></i>
+                            <div>
+                                <h3 class="font-bold text-lg">Horarios</h3>
+                                <p class="text-white/70"><span class="text-bistrea-orange">Lun - Sab:</span> 8:00 am – 8:00 pm</p>
+                                <p class="text-white/70"><span class="text-bistrea-orange">Domingo:</span> 8:00 am – 1:00 pm</p>
+                                <p class="text-red-400 text-sm mt-1">Festivos: Cerrado</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <i data-lucide="phone" class="w-6 h-6 text-bistrea-orange mt-1"></i>
+                            <div>
+                                <h3 class="font-bold text-lg">Contacto</h3>
+                                <p class="text-white/70">+57 312 4791563</p>
+                                <p class="text-white/70">hola@bistrea.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mapa Interactivo -->
+                <div class="w-full md:w-2/3 bg-gray-300 h-[400px] md:h-full relative">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.237243285759!2d-75.60269822423984!3d6.232422526435794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442994e6366539%3A0xc3b5387431e7f074!2sCl.%2032E%20%2380-75%2C%20Medell%C3%ADn%2C%20Bel%C3%A9n%2C%20Medell%C3%ADn%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1709230000000!5m2!1ses!2sco" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                        class="absolute inset-0 grayscale hover:grayscale-0 transition-all duration-500">
+                    </iframe>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="bg-[#2D241E] text-white/40 py-8 text-center text-sm">
+                <div class="container mx-auto px-4">
+                    <p>&copy; {{ new Date().getFullYear() }} Bistrea Coffee & Brunch. Todos los derechos reservados.</p>
+                    <div class="flex justify-center space-x-4 mt-4">
+                        <a href="https://www.instagram.com/bistreacoffeebrunch/" target="_blank" class="hover:text-bistrea-orange transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- LÓGICA DE LA APLICACIÓN (VUE.JS) -->
+    <script>
+        const { createApp, ref, onMounted, onUnmounted } = Vue;
+
+        createApp({
+            setup() {
+                const mobileMenuOpen = ref(false);
+                const isScrolled = ref(false);
+
+                // Datos del Menú
+                const menu = ref({
+                    brunch: [
+                        { name: "Cocotte Bistrea", desc: "2 huevos horneados enteros, salsa napolitana, parmesano, albahaca, jamón serrano, aguacate y pan brioche", price: "$33.000" },
+                        { name: "Prensado Chicken", desc: "Recomendado de la casa, croissant de queso, pollo desmechado, aguacate y mas", price: "$28.000" },
+                        { name: "Bowl de Frutas", desc: "Yogurt griego, acai, granola, chía, nuez pecan, arándanos, fresa, kiwi, banano", price: "$25.000" },
+                        { name: "Huevos Estrellados", desc: "Huevos, tocineta, pan brioche, tomates cherry, mermelada de la casa", price: "$18.000" }
+                    ],
+                    coffee: [
+                        { name: "Affogato", desc: "Espresso doble sobre bola de helado de vainilla", price: "$14.000" },
+                        { name: "Cappuccino", desc: "Espresso y leche texturizada", price: "$9.000" },
+                        { name: "Infusión de Flores", desc: "Exóticas, mix de primavera o mariposa azul", price: "$12.000" },
+                        { name: "Croissant de Almendras", desc: "Horneado diario, relleno de crema de almendras", price: "$12.000" }
+                    ]
+                });
+
+                // Imágenes de la Galería (Simetría 6 elementos)
+                const galleryImages = ref([
+                    { url: 'assets/images/galeria-1.jpg', span: 'col-span-2 row-span-2 md:h-full h-64' },
+                    { url: 'assets/images/galeria-2.jpg', span: 'col-span-1 row-span-1' },
+                    { url: 'assets/images/galeria-3.jpg', span: 'col-span-1 row-span-1' },
+                    { url: 'assets/images/galeria-4.jpg', span: 'col-span-1 row-span-1' },
+                    { url: 'assets/images/galeria-5.jpg', span: 'col-span-1 row-span-1' },
+                    { url: 'assets/images/galeria-6.jpg', span: 'col-span-1 row-span-1' }
+                ]);
+
+                // Manejo de Scroll para el Navbar
+                const handleScroll = () => {
+                    isScrolled.value = window.scrollY > 50;
+                };
+
+                onMounted(() => {
+                    window.addEventListener('scroll', handleScroll);
+                    lucide.createIcons(); // Inicializar iconos
+                });
+
+                onUnmounted(() => {
+                    window.removeEventListener('scroll', handleScroll);
+                });
+
+                return {
+                    mobileMenuOpen,
+                    isScrolled,
+                    menu,
+                    galleryImages
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
