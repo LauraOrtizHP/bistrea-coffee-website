@@ -84,7 +84,7 @@
                     </div>
 
                     <!-- Botón Menú Móvil -->
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden focus:outline-none transition-colors duration-300" :class="isScrolled ? 'text-bistrea-brown' : 'text-bistrea-light'">
+                   <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden focus:outline-none transition-colors duration-300" :class="isScrolled ? 'text-bistrea-brown' : 'text-bistrea-light'" aria-label="Toggle mobile menu">
                         <i data-lucide="menu" class="w-8 h-8"></i>
                     </button>
                 </div>
@@ -207,7 +207,6 @@
 
             <!-- 5. SECCIÓN MENÚ LISTA -->
             <section id="menu" class="py-20 bg-bistrea-brown text-bistrea-cream relative">
-                 <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/coffee.png')]"></div>
                  <div class="container mx-auto px-4 relative z-10 max-w-5xl">
                     <div class="text-center mb-16">
                         <h2 class="font-serif text-4xl md:text-5xl text-bistrea-orange">Nuestro Menú</h2>
@@ -302,11 +301,9 @@
                 </div>
                 <!-- Mapa Interactivo -->
                 <div class="w-full md:w-2/3 bg-gray-300 h-[400px] md:h-full relative">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.237243285759!2d-75.60269822423984!3d6.232422526435794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442994e6366539%3A0xc3b5387431e7f074!2sCl.%2032E%20%2380-75%2C%20Medell%C3%ADn%2C%20Bel%C3%A9n%2C%20Medell%C3%ADn%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1709230000000!5m2!1ses!2sco" 
-                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                        class="absolute inset-0 grayscale hover:grayscale-0 transition-all duration-500">
-                    </iframe>
+                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.237243285759!2d-75.60269822423984!3d6.232422526435794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442994e6366539%3A0xc3b5387431e7f074!2sCl.%2032E%20%2380-75%2C%20Medell%C3%ADn%2C%20Bel%C3%A9n%2C%20Medell%C3%ADn%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1709230000000!5m2!1ses!2sco" 
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" class="absolute inset-0 grayscale hover:grayscale-0 transition-all duration-500" title="Mapa interactivo de ubicación">
+                   </iframe>
                 </div>
             </section>
 
@@ -315,7 +312,7 @@
                 <div class="container mx-auto px-4">
                     <p>&copy; {{ new Date().getFullYear() }} Bistrea Coffee & Brunch. Todos los derechos reservados.</p>
                     <div class="flex justify-center space-x-4 mt-4">
-                        <a href="https://www.instagram.com/bistreacoffeebrunch/" target="_blank" class="hover:text-bistrea-orange transition-colors">
+                        <a href="https://www.instagram.com/bistreacoffeebrunch/" target="_blank" aria-label="Instagram de Bistrea Coffee & Brunch" class="hover:text-bistrea-orange transition-colors">
                             <i data-lucide="instagram" class="w-5 h-5"></i>
                         </a>
                     </div>
@@ -368,10 +365,10 @@
 
                 // Imágenes de la Galería (Simetría 6 elementos)
                 const galleryImages = ref([
-                    { url: 'assets/images/galeria-1.jpg', span: 'col-span-2 row-span-2 md:h-full h-64' },
+                    { url: 'assets/images/galeria-1.webp', span: 'col-span-2 row-span-2 md:h-full h-64' },
                     { url: 'assets/images/galeria-2.jpg', span: 'col-span-1 row-span-1' },
                     { url: 'assets/images/galeria-3.jpg', span: 'col-span-1 row-span-1' },
-                    { url: 'assets/images/galeria-4.jpg', span: 'col-span-1 row-span-1' },
+                    { url: 'assets/images/galeria-4.webp', span: 'col-span-1 row-span-1' },
                     { url: 'assets/images/galeria-5.jpg', span: 'col-span-1 row-span-1' },
                     { url: 'assets/images/galeria-6.jpg', span: 'col-span-1 row-span-1' }
                 ]);
