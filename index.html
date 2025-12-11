@@ -8,6 +8,8 @@
 
     <!-- FAVICON: El icono de la pestaña -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- Preload the hero LCP image to improve LCP score -->
+    <link rel="preload" as="image" href="assets/images/hero.webp">
     
     <!-- Librerías Externas (CDN) -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -259,9 +261,9 @@
                     </div>
                     
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px]">
-                        <div v-for="(img, index) in galleryImages" :key="index" 
-                             :class="['rounded-lg bg-gray-200 gallery-frame cursor-pointer', img.span]"
-                             :style="{ backgroundImage: `url(${img.url})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+                        <div v-for="(img, index) in galleryImages" :key="index"
+                             :class="['rounded-lg bg-gray-200 gallery-frame cursor-pointer overflow-hidden', img.span]">
+                            <img :src="img.url" :alt="'Momentos Bistrea ' + (index + 1)" class="w-full h-full object-cover" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
