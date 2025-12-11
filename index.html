@@ -49,6 +49,8 @@
 
     <!-- Estilos CSS Personalizados -->
     <style>
+        /* Hide Vue-controlled parts until Vue has mounted to prevent initial flicker */
+        [v-cloak] { display: none !important; }
         html { scroll-behavior: smooth; }
         body { background-color: #F9F5F0; color: #4A3B32; }
         
@@ -94,7 +96,7 @@
                 </div>
 
                 <!-- Desplegable Móvil -->
-                <div v-if="mobileMenuOpen" class="md:hidden bg-bistrea-cream absolute w-full shadow-lg border-t border-bistrea-brown/10">
+                <div v-cloak v-if="mobileMenuOpen" class="md:hidden bg-bistrea-cream absolute w-full shadow-lg border-t border-bistrea-brown/10">
                     <div class="flex flex-col p-4 space-y-4 text-center font-semibold">
                         <a @click="mobileMenuOpen = false" href="#inicio" class="block text-bistrea-brown">Inicio</a>
                         <a @click="mobileMenuOpen = false" href="#nosotros" class="block text-bistrea-brown">Nosotros</a>
