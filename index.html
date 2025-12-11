@@ -12,11 +12,13 @@
     <link rel="preload" as="image" href="assets/images/hero.webp">
     
     <!-- Librerías Externas (CDN) -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     
     <!-- Tipografías: Inter (Cuerpo) y Playfair Display (Títulos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <!-- Configuración Personalizada de Tailwind -->
@@ -326,8 +328,15 @@
                     </div>
                 </div>
         </div>
-         <!-- WIDGET TALLY (Con Dominio Personalizado) -->
-        <script async src="https://tally.so/widgets/embed.js"></script>
+                 <!-- WIDGET TALLY (Con Dominio Personalizado) - load after window.load to avoid render-blocking -->
+                <script>
+                    window.addEventListener('load', function () {
+                        var s = document.createElement('script');
+                        s.src = 'https://tally.so/widgets/embed.js';
+                        s.async = true;
+                        document.body.appendChild(s);
+                    });
+                </script>
         
         <button 
             data-tally-open="obbPlX" 
@@ -348,6 +357,7 @@
     
     <!-- LÓGICA DE LA APLICACIÓN (VUE.JS) -->
     <script>
+    document.addEventListener('DOMContentLoaded', function () {
         const { createApp, ref, onMounted, onUnmounted } = Vue;
 
         createApp({
@@ -403,6 +413,7 @@
                 }
             }
         }).mount('#app');
+    });
     </script>
 </body>
 </html>
